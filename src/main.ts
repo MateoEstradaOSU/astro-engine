@@ -248,6 +248,186 @@ export function areColliding(body1: CelestialBody, body2: CelestialBody): boolea
 }
 
 /**
+ * Update a celestial body's position and velocity using Euler integration
+ * @param body - The body to update (modified in place)
+ * @param force - Total force acting on the body
+ * @param dt - Time step in seconds
+ */
+export function updateBodyEuler(body: CelestialBody, force: Vector2D, dt: number): void {
+  // Calculate acceleration: F = ma => a = F/m
+  const acceleration = force.div(body.mass)
+  
+  // Update velocity: v = v0 + a*dt
+  body.velocity = body.velocity.add(acceleration.mul(dt))
+  
+  // Update position: x = x0 + v*dt
+  body.position = body.position.add(body.velocity.mul(dt))
+}
+
+/**
+ * Physics simulation class for N-body gravitational systems
+ */
+export class PhysicsSimulation {
+  public bodies: CelestialBody[]
+  public G: number
+  public dt: number
+  public time: number
+  public isRunning: boolean
+  
+  constructor(bodies: CelestialBody[] = [], G: number = GRAVITATIONAL_CONSTANT, dt: number = 1000) {
+    this.bodies = bodies
+    this.G = G
+    this.dt = dt // Default 1000 seconds (16.67 minutes)
+    this.time = 0
+    this.isRunning = false
+  }
+  
+  /**
+   * Add a celestial body to the simulation
+   */
+  addBody(body: CelestialBody): void {
+    this.bodies.push(body)
+  }
+  
+  /**
+   * Remove a celestial body from the simulation
+   */
+  removeBody(id: string): boolean {
+    const index = this.bodies.findIndex(body => body.id === id)
+    if (index !== -1) {
+      this.bodies.splice(index, 1)
+      return true
+    }
+    return false
+  }
+  
+  /**
+   * Perform one simulation step using Euler integration
+   */
+  step(): void {
+    // Calculate forces for all bodies
+    const forces: Map<string, Vector2D> = new Map()
+    
+    for (const body of this.bodies) {
+      const totalForce = calculateTotalGravitationalForce(body, this.bodies, this.G)
+      forces.set(body.id, totalForce)
+    }
+    
+    // Update all bodies using calculated forces
+    for (const body of this.bodies) {
+      const force = forces.get(body.id) || new Vector2D(0, 0)
+      updateBodyEuler(body, force, this.dt)
+    }
+    
+    this.time += this.dt
+  }
+  
+  /**
+   * Run simulation for a specified number of steps
+   */
+  simulate(steps: number): void {
+    for (let i = 0; i < steps; i++) {
+      this.step()
+    }
+  }
+  
+  /**
+   * Get simulation state as a snapshot
+   */
+  getState(): {
+    bodies: CelestialBody[]
+    time: number
+    G: number
+    dt: number
+  } {
+    return {
+      bodies: this.bodies.map(body => ({
+        ...body,
+        position: body.position.clone(),
+        velocity: body.velocity.clone()
+      })),
+      time: this.time,
+      G: this.G,
+      dt: this.dt
+    }
+  }
+  
+  /**
+   * Reset simulation to initial state
+   */
+  reset(): void {
+    this.time = 0
+    this.isRunning = false
+    // Note: This doesn't reset body positions - user should recreate bodies for full reset
+  }
+}
+
+/**
+ * Animation loop helper for real-time simulation
+ */
+export class SimulationRunner {
+  private simulation: PhysicsSimulation
+  private animationId: number | null = null
+  private onUpdate?: (state: any) => void
+  private lastTime: number = 0
+  
+  constructor(simulation: PhysicsSimulation, onUpdate?: (state: any) => void) {
+    this.simulation = simulation
+    this.onUpdate = onUpdate
+  }
+  
+  /**
+   * Start the animation loop
+   */
+  start(): void {
+    if (this.animationId !== null) return // Already running
+    
+    this.simulation.isRunning = true
+    this.lastTime = performance.now()
+    this.animate()
+  }
+  
+  /**
+   * Stop the animation loop
+   */
+  stop(): void {
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId)
+      this.animationId = null
+    }
+    this.simulation.isRunning = false
+  }
+  
+  /**
+   * Toggle between start and stop
+   */
+  toggle(): void {
+    if (this.simulation.isRunning) {
+      this.stop()
+    } else {
+      this.start()
+    }
+  }
+  
+  private animate = (): void => {
+    const currentTime = performance.now()
+    const deltaTime = (currentTime - this.lastTime) / 1000 // Convert to seconds
+    
+    // Run simulation step
+    this.simulation.step()
+    
+    // Call update callback if provided
+    if (this.onUpdate) {
+      const state = this.simulation.getState()
+      this.onUpdate({ ...state, frameTime: deltaTime })
+    }
+    
+    this.lastTime = currentTime
+    this.animationId = requestAnimationFrame(this.animate)
+  }
+}
+
+/**
  * Create predefined celestial bodies for common scenarios
  */
 export const CelestialBodyPresets = {

@@ -1,19 +1,30 @@
 {
-  "name": "astro-engine",
+  "name": "astro-physics-engine",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A TypeScript library for N-body gravitational physics simulation with 2D vector math",
+  "keywords": ["physics", "gravity", "simulation", "n-body", "orbital-mechanics", "typescript", "celestial"],
+  "author": "Mateo Estrada",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MateoEstradaOSU/astro-engine.git"
+  },
   "type": "module",
   "main": "./dist/astro-engine.umd.cjs",
   "module": "./dist/astro-engine.js",
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/astro-engine.js",
       "require": "./dist/astro-engine.umd.cjs"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite",

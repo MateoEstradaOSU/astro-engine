@@ -1,13 +1,11 @@
 // Test file for CelestialBody types and utilities
 import { 
   Vector2D, 
-  CelestialBody,
   createCelestialBody,
   calculateGravitationalForceBetweenBodies,
   calculateTotalGravitationalForce,
   areColliding,
-  CelestialBodyPresets,
-  GRAVITATIONAL_CONSTANT
+  CelestialBodyPresets
 } from './main.js'
 
 console.log('=== CelestialBody Type Tests ===')
