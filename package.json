@@ -1,0 +1,29 @@
+{
+  "name": "astro-engine",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/astro-engine.umd.cjs",
+  "module": "./dist/astro-engine.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/astro-engine.js",
+      "require": "./dist/astro-engine.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:lib": "vite build --mode lib",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.1.6",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
