@@ -4,13 +4,13 @@ A TypeScript library for N-body gravitational physics simulation with 2D vector 
 
 ## Features
 
-- 🚀 **N-body Gravitational Simulation**: Simulate multiple celestial bodies with realistic gravitational interactions
-- 📐 **2D Vector Mathematics**: Complete Vector2D class with all essential operations
-- 🪐 **Celestial Body System**: Pre-built celestial body types with realistic mass/radius presets
-- ⚡ **Euler Integration**: Numerical integration for position and velocity updates
-- 🔄 **Real-time Simulation**: Built-in animation loop support with `requestAnimationFrame`
-- 📊 **Energy Tracking**: Utilities for monitoring kinetic and potential energy conservation
-- 🎯 **TypeScript**: Full type safety and excellent IDE support
+- **N-body Gravitational Simulation**: Simulate multiple celestial bodies with realistic gravitational interactions
+- **2D Vector Mathematics**: Complete Vector2D class with all essential operations
+- **Celestial Body System**: Pre-built celestial body types with realistic mass/radius presets
+- **Euler Integration**: Numerical integration for position and velocity updates
+- **Real-time Simulation**: Built-in animation loop support with `requestAnimationFrame`
+- **Energy Tracking**: Utilities for monitoring kinetic and potential energy conservation
+- **TypeScript**: Full type safety and excellent IDE support
 
 ## Installation
 
