@@ -2,7 +2,6 @@
 import { 
   Vector2D, 
   PhysicsSimulation,
-  SimulationRunner,
   CelestialBodyPresets,
   createCelestialBody,
   calculateGravitationalForceBetweenBodies,

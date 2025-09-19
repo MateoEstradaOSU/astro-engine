@@ -411,14 +411,15 @@ export class SimulationRunner {
   
   private animate = (): void => {
     const currentTime = performance.now()
-    const realDeltaTime = (currentTime - this.lastTime) / 1000 // Convert to seconds
+    const deltaTime = (currentTime - this.lastTime) / 1000 // Convert to seconds
     
     // Run simulation step
     this.simulation.step()
     
     // Call update callback if provided
     if (this.onUpdate) {
-      this.onUpdate(this.simulation.getState())
+      const state = this.simulation.getState()
+      this.onUpdate({ ...state, frameTime: deltaTime })
     }
     
     this.lastTime = currentTime

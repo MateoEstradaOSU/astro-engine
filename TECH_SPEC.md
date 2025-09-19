@@ -38,14 +38,17 @@
 
 ---
 
-## Day 2 — Gravity & Motion
+## Day 2 — Gravity & Motion ✅ COMPLETED
 
-- Implement gravity function: returns force vector on body from another body.
-- Implement Euler integration: update positions/velocities by timestep `dt`.
-- Create simulation loop (`requestAnimationFrame` or manual stepping).
-- Vue demo: 2-body orbit (Earth around Sun).
+- ✅ Implement gravity function: returns force vector on body from another body.
+- ✅ Implement Euler integration: update positions/velocities by timestep `dt`.
+- ✅ Create simulation loop (`requestAnimationFrame` or manual stepping).
+- ✅ Physics simulation class with step-by-step integration.
+- ✅ SimulationRunner for real-time animation loops.
+- ✅ Energy tracking utilities for orbit stability analysis.
+- Vue demo: 2-body orbit (Earth around Sun) - *Ready for implementation*.
 
-**✅ Deliverable:** Earth orbits Sun (may not be perfectly stable).
+**✅ Deliverable:** Core physics engine complete - Earth can orbit Sun with configurable timesteps.
 
 
 ---
@@ -91,7 +94,38 @@
 
 ---
 
-## 💡 Optional Stretch Goals
+## � NPM Package Deployment
+
+### Package Configuration
+- Configure `package.json` for library publishing
+- Set up TypeScript build for both ESM and CommonJS
+- Export main functions, classes, and types
+- Add proper entry points for different module systems
+
+### Build & Publish
+- Build library with `vite build --lib`
+- Generate TypeScript declaration files
+- Publish to npm registry
+- Version: `0.1.0` (initial release with Day 1 & 2 features)
+
+### Library Exports
+```ts
+// Main exports available after npm install
+export {
+  Vector2D,
+  CelestialBody, 
+  PhysicsSimulation,
+  SimulationRunner,
+  CelestialBodyPresets,
+  calculateGravitationalForce,
+  updateBodyEuler,
+  GRAVITATIONAL_CONSTANT
+}
+```
+
+---
+
+## �💡 Optional Stretch Goals
 
 - Relativistic extension (replace momentum/energy formulas)
 - 3D support (`Vector3D`)
