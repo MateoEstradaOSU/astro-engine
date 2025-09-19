@@ -148,3 +148,148 @@ export class Vector2D {
     return `Vector2D(${this.x}, ${this.y})`
   }
 }
+
+/**
+ * Interface representing a celestial body in the simulation
+ */
+export interface CelestialBody {
+  /** Unique identifier for the body */
+  id: string
+  /** Display name of the body */
+  name: string
+  /** Mass in kilograms */
+  mass: number
+  /** Current position vector */
+  position: Vector2D
+  /** Current velocity vector */
+  velocity: Vector2D
+  /** Radius for collision detection and rendering (in meters) */
+  radius: number
+  /** Color for rendering (hex string like "#ff0000" or CSS color name) */
+  color: string
+}
+
+/**
+ * Create a new celestial body with default values
+ * @param params - Partial celestial body parameters
+ * @returns Complete celestial body with defaults filled in
+ */
+export function createCelestialBody(params: Partial<CelestialBody> & { 
+  id: string, 
+  name: string, 
+  mass: number 
+}): CelestialBody {
+  return {
+    position: new Vector2D(0, 0),
+    velocity: new Vector2D(0, 0),
+    radius: 1000, // Default 1km radius
+    color: "#ffffff", // Default white color
+    ...params
+  }
+}
+
+/**
+ * Calculate the gravitational force vector that body2 exerts on body1
+ * @param body1 - The body experiencing the force
+ * @param body2 - The body exerting the force
+ * @param G - Gravitational constant (optional)
+ * @returns Force vector acting on body1
+ */
+export function calculateGravitationalForceBetweenBodies(
+  body1: CelestialBody,
+  body2: CelestialBody,
+  G: number = GRAVITATIONAL_CONSTANT
+): Vector2D {
+  return calculateGravitationalForceVector(
+    body1.mass,
+    body1.position,
+    body2.mass,
+    body2.position,
+    G
+  )
+}
+
+/**
+ * Calculate the total gravitational force acting on a body from all other bodies
+ * @param targetBody - The body to calculate forces for
+ * @param otherBodies - Array of other bodies in the system
+ * @param G - Gravitational constant (optional)
+ * @returns Total force vector acting on the target body
+ */
+export function calculateTotalGravitationalForce(
+  targetBody: CelestialBody,
+  otherBodies: CelestialBody[],
+  G: number = GRAVITATIONAL_CONSTANT
+): Vector2D {
+  let totalForce = new Vector2D(0, 0)
+  
+  for (const otherBody of otherBodies) {
+    // Skip self-interaction
+    if (otherBody.id === targetBody.id) {
+      continue
+    }
+    
+    const force = calculateGravitationalForceBetweenBodies(targetBody, otherBody, G)
+    totalForce = totalForce.add(force)
+  }
+  
+  return totalForce
+}
+
+/**
+ * Check if two celestial bodies are colliding based on their radii
+ * @param body1 - First body
+ * @param body2 - Second body
+ * @returns True if the bodies are colliding
+ */
+export function areColliding(body1: CelestialBody, body2: CelestialBody): boolean {
+  const distance = body1.position.distanceTo(body2.position)
+  return distance <= (body1.radius + body2.radius)
+}
+
+/**
+ * Create predefined celestial bodies for common scenarios
+ */
+export const CelestialBodyPresets = {
+  /**
+   * Create a Sun-like star
+   */
+  createSun: (id: string = "sun", position: Vector2D = new Vector2D(0, 0)): CelestialBody => 
+    createCelestialBody({
+      id,
+      name: "Sun",
+      mass: 1.989e30, // kg
+      position,
+      velocity: new Vector2D(0, 0),
+      radius: 6.96e8, // meters
+      color: "#FDB813" // Golden yellow
+    }),
+
+  /**
+   * Create an Earth-like planet
+   */
+  createEarth: (id: string = "earth", position: Vector2D = new Vector2D(1.496e11, 0)): CelestialBody => 
+    createCelestialBody({
+      id,
+      name: "Earth",
+      mass: 5.972e24, // kg
+      position,
+      velocity: new Vector2D(0, 29780), // Approximate orbital velocity m/s
+      radius: 6.371e6, // meters
+      color: "#6B93D6" // Earth blue
+    }),
+
+  /**
+   * Create a Moon-like satellite
+   */
+  createMoon: (id: string = "moon", earthPosition: Vector2D = new Vector2D(1.496e11, 0)): CelestialBody => 
+    createCelestialBody({
+      id,
+      name: "Moon",
+      mass: 7.342e22, // kg
+      position: earthPosition.add(new Vector2D(3.844e8, 0)), // 384,400 km from Earth
+      velocity: new Vector2D(0, 29780 + 1022), // Earth velocity + lunar orbital velocity
+      radius: 1.737e6, // meters
+      color: "#C0C0C0" // Silver
+    })
+}

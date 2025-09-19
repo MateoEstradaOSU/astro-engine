@@ -2,8 +2,7 @@
 import { 
   Vector2D, 
   calculateGravitationalForce, 
-  calculateGravitationalForceVector,
-  GRAVITATIONAL_CONSTANT 
+  calculateGravitationalForceVector
 } from './main.js'
 
 // Test Vector2D operations
