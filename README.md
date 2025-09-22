@@ -4,14 +4,14 @@ A TypeScript library for N-body gravitational physics simulation with 2D vector 
 
 ## Features
 
-- 🌌 **N-body Gravitational Simulation**: Simulate multiple celestial bodies with realistic gravitational interactions
-- 📐 **2D & 3D Vector Mathematics**: Complete Vector2D and Vector3D classes with all essential operations
-- 🪐 **Celestial Body System**: Pre-built celestial body types with realistic mass/radius presets
-- 🚀 **3D Orbital Mechanics**: Full 3D support with orbital inclinations, angular momentum, and cross products
-- ⚡ **Euler Integration**: Numerical integration for position and velocity updates in 2D and 3D
-- 🔄 **Real-time Simulation**: Built-in animation loop support with `requestAnimationFrame`
-- 📊 **Conservation Laws**: Energy and angular momentum tracking for realistic physics
-- 🎯 **TypeScript**: Full type safety and excellent IDE support
+- **N-body Gravitational Simulation**: Simulate multiple celestial bodies with realistic gravitational interactions
+- **2D & 3D Vector Mathematics**: Complete Vector2D and Vector3D classes with all essential operations
+- **Celestial Body System**: Pre-built celestial body types with realistic mass/radius presets
+- **3D Orbital Mechanics**: Full 3D support with orbital inclinations, angular momentum, and cross products
+- **Euler Integration**: Numerical integration for position and velocity updates in 2D and 3D
+- **Real-time Simulation**: Built-in animation loop support with `requestAnimationFrame`
+- **Conservation Laws**: Energy and angular momentum tracking for realistic physics
+- **TypeScript**: Full type safety and excellent IDE support
 
 ## Installation
 
@@ -238,10 +238,9 @@ const angularMomentum = position.cross(momentum)
 - ✅ **Day 1**: Vector math, gravitational forces, celestial body types
 - ✅ **Day 2**: Euler integration, simulation loops, 2-body orbits
 - ✅ **Day 3**: Full 3D support, Vector3D, conservation laws, angular momentum
-- � **Day 4**: N-body optimization, stability improvements
-- 📋 **Day 5**: Interactive controls, orbit trails
-- 📋 **Day 6**: Advanced integration methods (Runge-Kutta)
-- 📋 **Day 7**: Library packaging, npm deployment
+- �  **Day 4**: Stability improvements, Library packaging, npm deployment
+- 📋 **Day 5**: Integration with Front-end library + testing (Vue)
+- 📋 **Day 6**: Integration with ThreeJS for simulation + testing
 
 ## 3D Physics Features
 
