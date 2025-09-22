@@ -927,7 +927,7 @@ export const CelestialBodyPresets3D = {
       velocity: new Vector3D(0, 29780 + 1022, 0), // Earth velocity + lunar orbital velocity
       radius: 1.737e6, // meters
       color: "#C0C0C0", // Silver
-      inclination: 0.089 // Moon's orbital inclination ~5.1° in radians
+      inclination: 0.0896 // Moon's orbital inclination ~5.14° in radians
     }),
 
   /**
