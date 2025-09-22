@@ -15,7 +15,7 @@ for i in "${!tests[@]}"; do
     echo "📋 Test $test_num/$total: $test_file"
     echo "------------------------------"
     
-    if cd /Users/mateoestrada/Documents/ts/astro-engine && node "build/$test_file"; then
+    if cd "$(dirname "$0")/.." && node "build/$test_file"; then
         echo "✅ $test_file - PASSED"
         ((passed++))
     else
