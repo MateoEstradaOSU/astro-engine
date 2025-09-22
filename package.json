@@ -1,9 +1,9 @@
 {
   "name": "astro-physics-engine",
   "private": false,
-  "version": "0.1.0",
-  "description": "A TypeScript library for N-body gravitational physics simulation with 2D vector math",
-  "keywords": ["physics", "gravity", "simulation", "n-body", "orbital-mechanics", "typescript", "celestial"],
+  "version": "0.2.0",
+  "description": "A TypeScript library for N-body gravitational physics simulation with 2D & 3D vector math, conservation laws, and orbital mechanics",
+  "keywords": ["physics", "gravity", "simulation", "n-body", "orbital-mechanics", "typescript", "celestial", "3d-physics", "angular-momentum", "conservation-laws", "vector-math"],
   "author": "Mateo Estrada",
   "license": "MIT",
   "repository": {
@@ -30,7 +30,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:lib": "vite build --mode lib",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "./run-tests.sh",
+    "test:compile": "npx tsc src/test-*.ts --outDir build --module es2020 --target es2020 --moduleResolution node --esModuleInterop"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
