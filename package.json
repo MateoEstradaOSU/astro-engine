@@ -30,7 +30,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:lib": "vite build --mode lib",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "./run-tests.sh",
+    "test:compile": "npx tsc src/test-*.ts --outDir build --module es2020 --target es2020 --moduleResolution node --esModuleInterop"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
