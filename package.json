@@ -1,7 +1,7 @@
 {
   "name": "astro-physics-engine",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A TypeScript library for N-body gravitational physics simulation with 2D & 3D vector math, conservation laws, and orbital mechanics",
   "keywords": ["physics", "gravity", "simulation", "n-body", "orbital-mechanics", "typescript", "celestial", "3d-physics", "angular-momentum", "conservation-laws", "vector-math"],
   "author": "Mateo Estrada",
